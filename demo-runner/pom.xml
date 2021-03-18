@@ -16,6 +16,31 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+
+        <dependency>
+            <groupId>com.dobbinsoft</groupId>
+            <artifactId>demo-data</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.dobbinsoft</groupId>
+            <artifactId>demo-admin-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.dobbinsoft</groupId>
+            <artifactId>demo-app-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.dobbinsoft</groupId>
+            <artifactId>fw-launcher</artifactId>
+            <version>${dobbinfw-launcher.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
