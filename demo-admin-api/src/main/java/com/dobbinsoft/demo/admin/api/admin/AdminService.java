@@ -1,9 +1,7 @@
 package com.dobbinsoft.demo.admin.api.admin;
 
 
-import com.dobbinsoft.demo.data.domain.RoleDO;
 import com.dobbinsoft.demo.data.dto.AdminDTO;
-import com.dobbinsoft.demo.data.dto.RoleSetPermissionDTO;
 import com.dobbinsoft.fw.core.Const;
 import com.dobbinsoft.fw.core.annotation.HttpMethod;
 import com.dobbinsoft.fw.core.annotation.HttpOpenApi;

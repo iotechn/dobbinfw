@@ -1,9 +1,11 @@
 package com.dobbinsoft.demo.data.enums;
 
+import com.dobbinsoft.fw.core.enums.BaseEnums;
+
 /**
  * Created by rize on 2019/2/11.
  */
-public enum RoleStatusType {
+public enum RoleStatusType implements BaseEnums {
     LOCK(0, "冻结"),
     ACTIVE(1, "激活");
 
