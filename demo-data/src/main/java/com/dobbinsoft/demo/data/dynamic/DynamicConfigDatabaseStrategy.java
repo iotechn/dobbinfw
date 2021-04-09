@@ -50,7 +50,7 @@ public class DynamicConfigDatabaseStrategy implements DynamicStorageStrategy {
         if (dynamicConfigDO == null) {
             return null;
         }
-        return dynamicConfigDO.getConfigKey();
+        return dynamicConfigDO.getConfigValue();
     }
 
     @Override
