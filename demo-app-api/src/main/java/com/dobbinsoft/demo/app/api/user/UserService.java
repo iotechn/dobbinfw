@@ -3,10 +3,7 @@ package com.dobbinsoft.demo.app.api.user;
 
 import com.dobbinsoft.demo.data.dto.UserDTO;
 import com.dobbinsoft.fw.core.Const;
-import com.dobbinsoft.fw.core.annotation.HttpMethod;
-import com.dobbinsoft.fw.core.annotation.HttpOpenApi;
-import com.dobbinsoft.fw.core.annotation.HttpParam;
-import com.dobbinsoft.fw.core.annotation.HttpParamType;
+import com.dobbinsoft.fw.core.annotation.*;
 import com.dobbinsoft.fw.core.annotation.param.NotNull;
 import com.dobbinsoft.fw.core.annotation.param.TextFormat;
 import com.dobbinsoft.fw.core.exception.ServiceException;
@@ -17,9 +14,9 @@ import com.dobbinsoft.fw.core.exception.ServiceException;
 @HttpOpenApi(group = "user", description = "用户服务")
 public interface UserService {
 
-    @HttpMethod(description = "发送验证码到用户手机")
+    @HttpMethod(description = "发送验证码到用户手机", rate = 10, rateLimit = RateLimitType.IP)
     public String sendVerifyCode(
-            @NotNull @TextFormat(length = 11) @HttpParam(name = "phone", type = HttpParamType.COMMON, description = "用户手机号") String phone) throws ServiceException;
+            @NotNull(message = "手机号不能为空") @TextFormat(length = 11) @HttpParam(name = "phone", type = HttpParamType.COMMON, description = "用户手机号") String phone) throws ServiceException;
 
     @HttpMethod(description = "用户注册")
     public String register(

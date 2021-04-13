@@ -18,7 +18,7 @@ public class SessionConfig {
 
     @Bean
     public SessionUtil<UserDTO, AdminDTO> sessionUtil() {
-        return new SessionUtil<>();
+        return new SessionUtil<>(UserDTO.class, AdminDTO.class);
     }
 
 }
