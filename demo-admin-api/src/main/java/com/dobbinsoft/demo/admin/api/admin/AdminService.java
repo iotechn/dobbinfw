@@ -9,6 +9,9 @@ import com.dobbinsoft.fw.core.annotation.HttpParam;
 import com.dobbinsoft.fw.core.annotation.HttpParamType;
 import com.dobbinsoft.fw.core.annotation.param.NotNull;
 import com.dobbinsoft.fw.core.exception.ServiceException;
+import com.dobbinsoft.fw.support.annotation.Query;
+import com.dobbinsoft.fw.support.annotation.QueryCondition;
+import com.dobbinsoft.fw.support.annotation.enums.Conditions;
 import com.dobbinsoft.fw.support.model.Page;
 
 /**
@@ -17,7 +20,7 @@ import com.dobbinsoft.fw.support.model.Page;
 @HttpOpenApi(group = "admin", description = "管理员服务")
 public interface AdminService {
 
-    @HttpMethod(description = "管理员登录 返回AccessToken")
+    @HttpMethod(description = "管理员登录 返回 AccessToken")
     public String login(
             @NotNull @HttpParam(name = "username", type = HttpParamType.COMMON, description = "用户名") String username,
             @NotNull @HttpParam(name = "password", type = HttpParamType.COMMON, description = "密码") String password,
@@ -32,9 +35,9 @@ public interface AdminService {
     public AdminDTO info(
             @NotNull @HttpParam(name = "adminId", type = HttpParamType.ADMIN_ID, description = "管理员ID") Long adminId) throws ServiceException;
 
-    @HttpMethod(description = "列表", permission = "sys:admin:list", permissionParentName = "系统管理", permissionName = "管理员")
+    @HttpMethod(description = "列表", openPlatform = true)
     public Page<AdminDTO> list(
-            @HttpParam(name = "username", type = HttpParamType.COMMON, description = "管理员名称搜索") String name,
+            @HttpParam(name = "username", type = HttpParamType.COMMON, description = "管理员名称搜索") String username,
             @HttpParam(name = "page", type = HttpParamType.COMMON, description = "页码", valueDef = "1") Integer page,
             @HttpParam(name = "limit", type = HttpParamType.COMMON, description = "页长度", valueDef = "20") Integer limit,
             @NotNull @HttpParam(name = "adminId", type = HttpParamType.ADMIN_ID, description = "管理员ID") Long adminId) throws ServiceException;

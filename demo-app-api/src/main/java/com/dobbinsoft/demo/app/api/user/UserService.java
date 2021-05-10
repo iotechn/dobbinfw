@@ -38,7 +38,7 @@ public interface UserService {
             @NotNull @TextFormat(lengthMin = 8, lengthMax = 18, notChinese = true) @HttpParam(name = "password", type = HttpParamType.COMMON, description = "用户密码") String password,
             @NotNull @HttpParam(name = "verifyCode", type = HttpParamType.COMMON, description = "注册验证码") String verifyCode) throws ServiceException;
 
-    @HttpMethod(description = "用户登录")
+    @HttpMethod(description = "密码登录")
     public UserDTO login(
             @NotNull @HttpParam(name = "phone", type = HttpParamType.COMMON, description = "用户手机号") String phone,
             @NotNull @TextFormat(lengthMin = 8, lengthMax = 18, notChinese = true) @HttpParam(name = "password", type = HttpParamType.COMMON, description = "用户密码") String password,
@@ -56,6 +56,15 @@ public interface UserService {
             @NotNull @HttpParam(name = "loginType", type = HttpParamType.COMMON, description = "第三方代号") Integer loginType,
             @NotNull @HttpParam(name = "ip", type = HttpParamType.IP, description = "用户Ip") String ip,
             @NotNull @HttpParam(name = "raw", type = HttpParamType.COMMON, description = "第三方平台返回的数据") String raw) throws ServiceException;
+
+    @HttpMethod(description = "注册一键登录Key")
+    public String registerOneKeyLoginKey(
+            @NotNull @HttpParam(name = "encryption", type = HttpParamType.COMMON, description = "从UniCloud发过来的加密数据") String encryption,
+            @NotNull @HttpParam(name = "ip", type = HttpParamType.IP, description = "登录IP") String ip) throws ServiceException;
+
+    @HttpMethod(description = "本机手机号一键登录")
+    public UserDTO oneKeyLogin(
+            @NotNull @HttpParam(name = "tempToken", type = HttpParamType.COMMON, description = "临时token") String tempToken) throws ServiceException;
 
     @HttpMethod(description = "同步用户信息")
     public String syncUserInfo(

@@ -21,7 +21,9 @@ import com.dobbinsoft.fw.core.exception.CoreExceptionDefinition;
 import com.dobbinsoft.fw.core.exception.ServiceException;
 import com.dobbinsoft.fw.core.exception.ThirdPartServiceException;
 import com.dobbinsoft.fw.core.util.GeneratorUtil;
-import com.dobbinsoft.fw.core.util.SessionUtil;
+import com.dobbinsoft.fw.support.annotation.Query;
+import com.dobbinsoft.fw.support.annotation.QueryCondition;
+import com.dobbinsoft.fw.support.annotation.enums.Conditions;
 import com.dobbinsoft.fw.support.component.CacheComponent;
 import com.dobbinsoft.fw.support.model.Page;
 import com.dobbinsoft.fw.support.properties.FwAdminNotifyProperties;
@@ -141,26 +143,23 @@ public class AdminServiceImpl extends BaseService<UserDTO, AdminDTO> implements 
         return sessionUtil.getAdmin();
     }
 
+    @Query(isAsc = false)
     @Override
-    public Page<AdminDTO> list(String name, Integer page, Integer limit, Long adminId) throws ServiceException {
-        QueryWrapper<AdminDO> wrapper = new QueryWrapper<AdminDO>();
-        if (!StringUtils.isEmpty(name)) {
-            wrapper.like("username", name);
-        }
-        wrapper.orderByDesc("id");
-        Page<AdminDO> selectPage = adminMapper.selectPage(Page.div(page, limit, AdminDO.class), wrapper);
-        List<AdminDTO> adminDTOS = new ArrayList<AdminDTO>(selectPage.getItems().size());
-
-        if (!CollectionUtils.isEmpty(selectPage.getItems())) {
-            for (AdminDO adminDO : selectPage.getItems()) {
-                AdminDTO adminDTO = new AdminDTO();
-                BeanUtils.copyProperties(adminDO, adminDTO);
-                adminDTO.setRoleIds(JSONObject.parseArray(adminDO.getRoleIds(), Long.class));
-                adminDTO.setPassword(null);
-                adminDTOS.add(adminDTO);
-            }
-        }
-        return new Page<>(adminDTOS, page, limit, selectPage.getCount());
+    public Page<AdminDTO> list(@QueryCondition(condition = Conditions.LIKE) String username, Integer page, Integer limit, Long adminId) throws ServiceException {
+//        QueryWrapper<AdminDO> wrapper = new QueryWrapper<AdminDO>();
+//        if (!StringUtils.isEmpty(name)) {
+//            wrapper.like("username", name);
+//        }
+//        wrapper.orderByDesc("id");
+//        Page<AdminDO> selectPage = adminMapper.selectPage(Page.div(page, limit, AdminDO.class), wrapper);
+        Page<AdminDO> selectPage = adminMapper.selectPage(Page.div(page, limit, AdminDO.class));
+        return selectPage.trans(item -> {
+            AdminDTO adminDTO = new AdminDTO();
+            BeanUtils.copyProperties(item, adminDTO);
+            adminDTO.setRoleIds(JSONObject.parseArray(item.getRoleIds(), Long.class));
+            adminDTO.setPassword(null);
+            return adminDTO;
+        });
     }
 
     @Override

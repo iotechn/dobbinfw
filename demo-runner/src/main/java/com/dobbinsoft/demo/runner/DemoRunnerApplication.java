@@ -1,5 +1,6 @@
 package com.dobbinsoft.demo.runner;
 
+import com.dobbinsoft.fw.support.annotation.EnableOpenPlatform;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,10 +20,11 @@ import org.springframework.context.ConfigurableApplicationContext;
 @MapperScan({
         "com.dobbinsoft.demo.data.mapper"
 })
+@EnableOpenPlatform
 public class DemoRunnerApplication {
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext applicationContext = SpringApplication.run(DemoRunnerApplication.class, args);
+        SpringApplication.run(DemoRunnerApplication.class, args);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.dobbinsoft.demo.app.api.user;
 
 import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.symmetric.AES;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dobbinsoft.demo.biz.service.user.UserBizService;
@@ -35,6 +36,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -244,6 +247,26 @@ public class UserServiceImpl extends BaseService<UserDTO, AdminDTO> implements U
             logger.error("[用户第三方登录] 异常", e);
             throw new AppServiceException(ExceptionDefinition.USER_THIRD_PART_LOGIN_FAILED);
         }
+    }
+
+    @Override
+    public String registerOneKeyLoginKey(String encryption, String ip) throws ServiceException {
+        AES aes = SecureUtil.aes("MjZdfoLInbGG1va4vWvy5IrP8BOTIGFQe".getBytes());
+        String json = new String(aes.decrypt(encryption), StandardCharsets.UTF_8);
+        JSONObject jsonObject = JSONObject.parseObject(json);
+        cacheComponent.putRaw(CacheConst.USER_ONE_KEY_LOGIN_TEMP_TOKEN + jsonObject.getString("tempToken"), jsonObject.getString("phone"), 90);
+        return "ok";
+    }
+
+    @Override
+    public UserDTO oneKeyLogin(String tempToken) throws ServiceException {
+        String phone = cacheComponent.getRaw(CacheConst.USER_ONE_KEY_LOGIN_TEMP_TOKEN + tempToken);
+        if (!StringUtils.isEmpty(phone)) {
+            // 登录并注册
+            // TODO
+
+        }
+        throw new AppServiceException(ExceptionDefinition.USER_THIRD_PART_LOGIN_FAILED);
     }
 
     @Override
