@@ -5,7 +5,7 @@ import com.dobbinsoft.fw.core.enums.BaseEnums;
 /**
  * Created by rize on 2019/2/11.
  */
-public enum RoleStatusType implements BaseEnums {
+public enum RoleStatusType implements BaseEnums<Integer> {
     LOCK(0, "冻结"),
     ACTIVE(1, "激活");
 
@@ -19,7 +19,7 @@ public enum RoleStatusType implements BaseEnums {
         this.msg = msg;
     }
 
-    public int getCode() {
+    public Integer getCode() {
         return code;
     }
 

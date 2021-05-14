@@ -5,7 +5,7 @@ import com.dobbinsoft.fw.core.enums.BaseEnums;
 /**
  * Created by rize on 2019/2/13.
  */
-public enum UserLoginType implements BaseEnums {
+public enum UserLoginType implements BaseEnums<Integer> {
     REGISTER(0, "手机注册"),
     MP_WEIXIN(1, "WX小程序登录"),
     APP_WEIXIN(2, "WX第三方登录"),
@@ -21,7 +21,7 @@ public enum UserLoginType implements BaseEnums {
 
     private String msg;
 
-    public int getCode() {
+    public Integer getCode() {
         return code;
     }
 

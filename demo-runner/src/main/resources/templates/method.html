@@ -154,7 +154,15 @@
                                         <tr>
                                             <td>${field.name}</td>
                                             <td><a href="#${field.type}">${field.type}</a></td>
-                                            <td>${field.description}</td>
+                                            <td>
+                                                <span>${field.description}</span>
+                                                <#if field.enums??>
+                                                    <a onclick="copyText('${field.map}')">复制MAP</a>
+                                                </#if>
+                                                <#if field.enums??>
+                                                    <a onclick="copyText('${field.filter}')">复制Filter</a>
+                                                </#if>
+                                            </td>
                                         </tr>
                                     </#list>
                                 </tbody>
@@ -182,7 +190,15 @@
                             <tr>
                                 <td>${field.name}</td>
                                 <td><a href="#${field.type}">${field.type}</a></td>
-                                <td>${field.description}</td>
+                                <td>
+                                    <span>${field.description}</span>
+                                    <#if field.enums??>
+                                        <a onclick="copyText('${field.map}')">复制MAP</a>
+                                    </#if>
+                                    <#if field.enums??>
+                                        <a onclick="copyText('${field.filter}')">复制Filter</a>
+                                    </#if>
+                                </td>
                             </tr>
                             </#list>
                             </tbody>
@@ -240,7 +256,10 @@
                                         </#if>
                                     </td>
                                     <td><input id="${param.name}" name="${param.name}" type="text"></td>
-                                    <td>${param.description}</td>
+                                    <td>
+                                        <span>${param.description}</span>
+                                    </td>
+
                                 </tr>
                             </#if>
 
@@ -286,6 +305,7 @@
             </section>
         </div>
     </div>
+<textarea id="copyborad" style="display: none"></textarea>
 </div>
 
 <div class="open-footer">
@@ -294,7 +314,6 @@
     </ul>
     <p>备案</p>
 </div>
-<script src="http://open.fengqu.com/js/md5.min.js"></script>
 <script type="text/javascript">
     var path = location.pathname.split("/");
     var len = path.length;
@@ -320,8 +339,48 @@
         });
     }
 </script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js"></script>
 <script>
+    // 设置cookie
+    <#list model.parameters as param>
+    <#if param.type == "USER_ID">
+    document.getElementById("access_token").value = getCookie("ACCESSTOKEN")
+    </#if>
+    <#if param.type == "ADMIN_ID">
+    document.getElementById("admin_access_token").value = getCookie("ADMINTOKEN")
+    </#if>
+    </#list>
+    function setCookie(c_name, value, expiredays) {
+        var exdate = new Date();
+        exdate.setDate(exdate.getDate() + expiredays);
+        document.cookie = c_name + "=" + escape(value) + ";expires=" + exdate.toGMTString() + ";path=/";
+    }
+    // 读取cookie
+    function getCookie(c_name) {
+        if (document.cookie.length > 0)     {
+            c_start = document.cookie.indexOf(c_name + "=")
+            if (c_start != -1){
+                c_start = c_start + c_name.length + 1
+                c_end = document.cookie.indexOf(";", c_start)
+                if (c_end == -1)
+                    c_end = document.cookie.length
+                return unescape(document.cookie.substring(c_start, c_end))
+            }
+        }
+        return ""
+    }
+    // 清除cookie
+    function clearCookie(name) {
+        setCookie(name, "", -1);
+    }
+    function copyText(text) {
+        var copyborad = document.getElementById("copyborad");
+        copyborad.style.display = 'block'
+        copyborad.value = text; // 修改文本框的内容
+        copyborad.select(); // 选中文本
+        document.execCommand("copy"); // 执行浏览器复制命令
+        copyborad.style.display = 'none'
+        alert("复制成功");
+    }
     function getParamData(){
         //获取参数
         var requestData = {};
@@ -329,7 +388,9 @@
         requestData._mt = $("#_mt").text();
         <#list model.parameters as param>
         <#if param.type != "USER_ID">
+        <#if param.type != "ADMIN_ID">
         requestData.${param.name} = $("#${param.name}").val();
+        </#if>
         </#if>
         </#list>
         return requestData;
@@ -347,9 +408,11 @@
             beforeSend: function (request) {
                 if (accessToken) {
                     request.setRequestHeader("ACCESSTOKEN", accessToken);
+                    setCookie("ACCESSTOKEN", accessToken, 1)
                 }
                 if (adminAccessToken) {
                     request.setRequestHeader("ADMINTOKEN", adminAccessToken);
+                    setCookie("ADMINTOKEN", adminAccessToken, 1)
                 }
             },
             cache:true,

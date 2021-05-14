@@ -95,7 +95,6 @@
     </ul>
     <p>备案</p>
 </div>
-<script src="http://open.fengqu.com/js/md5.min.js"></script>
 <script type="text/javascript">
     var path = location.pathname.split("/");
     var len = path.length;
@@ -105,12 +104,11 @@
         groupElement.parent().parent().find("ul").css("display", "block");
         $("[data-name='" + decodeURI(path[len-1]) + "']").addClass("active");
     }
-    $(".groupName").click(function(){
+    $(".groupName").click(function() {
         if($(this).parent().parent().find("ul").css("display") == "block"){
             $(this).removeClass('active');
             $($(this).parent().parent().find("ul")).css("display", "none");
-        }
-        else{
+        }  else {
             $(this).addClass('active');
             $($(this).parent().parent().find("ul")).css("display", "block");
         }
