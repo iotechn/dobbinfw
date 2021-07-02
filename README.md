@@ -1,3 +1,25 @@
+[INFO] Setting default groupId: com.dobbinarchetype
+[INFO] Setting default artifactId: demo
+[INFO] Setting default version: 0.0.1-SNAPSHOT
+[INFO] Setting default package: com
+
+现在还没解决的问题是，package只有com
+
+临时解决方式是，archetype:create-from-project 时不要clean。然后第二次构建时，会选择
+
+[INFO] Setting default groupId: com.dobbinarchetype
+[INFO] Setting default artifactId: demo
+[INFO] Setting default version: 0.0.1-SNAPSHOT
+[INFO] Setting default package: com.dobbinarchetype
+
+然后手动将generated-source不要的包删掉，还有Test
+
+然后提交maven就行了
+
+
+// 上诉问题已经解决，原来Test里面的也要算，框架会自动取所有源码前面公共的部分。
+
+
 1. 第一步在根目录执行，创建原型代码
 
 
