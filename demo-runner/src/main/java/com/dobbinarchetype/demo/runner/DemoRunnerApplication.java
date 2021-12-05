@@ -1,5 +1,6 @@
 package com.dobbinarchetype.demo.runner;
 
+import com.anji.captcha.config.AjCaptchaAutoConfiguration;
 import com.dobbinsoft.fw.support.annotation.EnableOpenPlatform;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -13,6 +14,8 @@ import org.springframework.boot.autoconfigure.data.redis.RedisReactiveAutoConfig
                 "com.dobbinsoft.fw"
         },
         exclude = {
+                // 若需要AJ验证码，注释掉下面这行
+                AjCaptchaAutoConfiguration.class,
                 RedisAutoConfiguration.class,
                 RedisReactiveAutoConfiguration.class
         })
