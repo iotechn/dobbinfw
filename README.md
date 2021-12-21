@@ -15,7 +15,7 @@
 ##### 2.2. maven原型构建
 
 ###### 2.2.1. 安装core、support、launcher包
-请参考[core](../dobbinfw-core)、[support](../dobbinfw-support)、[launcher](../dobbinfw-launcher)
+请参考[core](../../../dobbinfw-core)、[support](../../../dobbinfw-support)、[launcher](../../../dobbinfw-launcher)
 
 ###### 2.2.2. 构建
 
@@ -39,17 +39,21 @@ mvn install
 
 3. 发布到私库
 
-    mvn deploy
-    // 但是如果是用的阿里云 云效的制品仓库的话，可能需要这样
-    mvn clean install org.apache.maven.plugins:maven-deploy-plugin:2.8:deploy -DskipTests
+```shell
+mvn deploy
+// 但是如果是用的阿里云 云效的制品仓库的话，可能需要这样
+mvn clean install org.apache.maven.plugins:maven-deploy-plugin:2.8:deploy -DskipTests
+```
 
 ##### 2.3. 使用IDEA原型构建
 
 选择New Project，并输入以下坐标
 
-  <groupId>com.dobbinarchetype</groupId>
-  <artifactId>demo-archetype</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+```xml
+<groupId>com.dobbinarchetype</groupId>
+<artifactId>demo-archetype</artifactId>
+<version>0.0.1-SNAPSHOT</version>
+```
 
 ![](https://img.dobbinsoft.com/doc/archetype/idea.png)
 
@@ -67,10 +71,11 @@ mvn install
 
 | 依赖 | 解释 |
 | ---- | ---- |
-|   [core](../dobbinfw-core)   | 核心包 |
-|   [support](../dobbinfw-support)   | 支持包，非常重要的文档 |
-|   [launcher](../dobbinfw-launcher)   | 启动器，非常重要的文档 |
+|   [core](../../../dobbinfw-core)   | 核心包 |
+|   [support](../../../dobbinfw-support)   | 支持包，非常重要的文档 |
+|   [launcher](../../../dobbinfw-launcher)   | 启动器，非常重要的文档 |
 
 #### 五、贡献 & 社区
 
 若Launcher包不能满足您的业务需求，您可以直接在仓库中发布Pull Request。本项目欢迎所有开发者一起维护，并永久开源。
+

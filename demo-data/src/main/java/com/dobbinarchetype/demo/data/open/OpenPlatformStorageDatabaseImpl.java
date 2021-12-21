@@ -93,6 +93,7 @@ public class OpenPlatformStorageDatabaseImpl implements OpenPlatformStorageStrat
         opClient.setPublicKey1(openPlatformClientDO.getPublicKey1());
         opClient.setPublicKey2(openPlatformClientDO.getPublicKey2());
         opClient.setCode(openPlatformClientDO.getCode());
+        opClient.setNotifyUrl(openPlatformClientDO.getNotifyUrl());
         if (StringUtils.isEmpty(openPlatformClientDO.getPermissionList())) {
             opClient.setPermissionList(new ArrayList<>());
         } else {
@@ -127,6 +128,7 @@ public class OpenPlatformStorageDatabaseImpl implements OpenPlatformStorageStrat
         opClient.setPrivateKey1(openPlatformClientDO.getPrivateKey1());
         opClient.setPublicKey2(openPlatformClientDO.getPublicKey2());
         opClient.setCode(openPlatformClientDO.getCode());
+        opClient.setNotifyUrl(openPlatformClientDO.getNotifyUrl());
         if (StringUtils.isEmpty(openPlatformClientDO.getPermissionList())) {
             opClient.setPermissionList(new ArrayList<>());
         } else {
